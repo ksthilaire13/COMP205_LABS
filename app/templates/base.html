@@ -1,13 +1,13 @@
 <!doctype html>
 <html>
-    <head></head>
+    <head>
         <title>Welcome to Ithaca Music</title>
     </head>
     <body>
         <div>
-            <a href="{{ url_for('home') }}">Ithaca Music:</a>
+            <a href="{{ url_for('index') }}">Ithaca Music:</a>
             <a href="{{ url_for('artists') }}">Artists</a>
-            <a href="{{ url_for('new_artists') }}">New Artists</a>
+            <a href="{{ url_for('login') }}">New Artists</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
