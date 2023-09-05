@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for
 from app import app
-from app.forms import LoginForm
+from app.forms import LoginForm, CreateAccountForm
+
 
 @app.route('/')
 @app.route('/index')
@@ -27,3 +28,12 @@ def login():
             form.username.data, form.remember_me.data))
         return redirect(url_for('index'))
     return render_template('login.html',  title='Sign In', form=form)
+
+@app.route('/create_user', methods=['GET','POST'])
+def create_user():
+    form = CreateAccountForm()
+    if form.validate_on_submit():
+        flash("New User {} Created".format(form.username.data))
+        return redirect(url_for('login'))
+    return render_template('create_account.html', title="Create User")
+

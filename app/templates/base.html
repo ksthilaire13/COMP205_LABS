@@ -1,17 +1,13 @@
 <!doctype html>
 <html>
-    <head>
-        {% if title %}
-        <title>{{ title }} - Microblog</title>
-        {% else %}
-        <title>Welcome to Microblog</title>
-        {% endif %}
+    <head></head>
+        <title>Welcome to Ithaca Music</title>
     </head>
     <body>
         <div>
-            Microblog:
-            <a href="{{ url_for('index') }}">Home</a>
-            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('home') }}">Ithaca Music:</a>
+            <a href="{{ url_for('artists') }}">Artists</a>
+            <a href="{{ url_for('new_artists') }}">New Artists</a>
         </div>
         <hr>
         {% with messages = get_flashed_messages() %}
