@@ -25,14 +25,9 @@ def artists():
     return render_template('artists.html', title='Artists', posts=artists_list)
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/new_artist')
 def login():
-    form = LoginForm()
-    if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.username.data, form.remember_me.data))
-        return redirect(url_for('index'))
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('new_artist.html')
 
 
 @app.route('/artist_page')
@@ -60,6 +55,6 @@ artists_list = [
     {
         'artist': 'The Blind Spots',
         'description': 'Description blah blah blah pt 2',
-        'events': ['event 3, event 4']
+        'events': ['event 3', 'event 4']
     }
 ]
