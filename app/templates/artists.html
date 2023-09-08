@@ -2,8 +2,8 @@
 
 {% block content %}
     <h2>List of Artists</h2>
-    {% for artists in posts %}
-        <p>a message</p>
-        <a href="{{ url_for('index') }}">Test</a>
+    {% for post in posts %}
+        <div><a href="{{ url_for('index') }}">{{ post.artist }}</a></div>
+        <br>
     {% endfor %}
 {% endblock %}
