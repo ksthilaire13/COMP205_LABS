@@ -43,7 +43,7 @@ def artists():
             'events': ['event 3, event 4']
         }
     ]
-    return render_template('artists.html', title='Artists', posts=artists)
+    return render_template('artists.html', title='Artists', posts=artists_list)
 
 
 @app.route('/login', methods=['GET', 'POST'])
