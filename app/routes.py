@@ -21,18 +21,29 @@ def index():
 
 @app.route('/artists')
 def artists():
-    user = {'username': 'Miguel'}
-    posts = [
+    artists_list = [
         {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
+            'artist': 'John Brown\'s Body',
+            'description': 'Description wooooo!',
+            'events': ['an event', 'another event']
         },
         {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
+            'artist': 'The Gunpoets',
+            'description': 'Voice as a weapon, words as bullets, spreading the universal message of peace, love, and justice through music. Sure, there\'s a cynical cultural tendency to make certain assumptions when you hear the word \"gun\" associated with rap music, but this seven-member live hip-hop band from Ithaca, NY, runs contrary to that image with their positive message and uplifting performances.',
+            'events': ['The Haunt next Friday 9/14','The Commons on Thursday 9/6'],
+        },
+        {
+            'artist': 'Donna The Buffalo',
+            'description': 'Description blah blah blah',
+            'events': ['event 1', 'event 2']
+        },
+        {
+            'artist': 'The Blind Spots',
+            'description': 'Description blah blah blah pt 2',
+            'events': ['event 3, event 4']
         }
     ]
-    return render_template('index.html', title='Home', user=user, posts=posts)
+    return render_template('artists.html', title='Artists', posts=artists)
 
 
 @app.route('/login', methods=['GET', 'POST'])
