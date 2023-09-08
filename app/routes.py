@@ -5,19 +5,8 @@ from app.forms import LoginForm
 
 @app.route('/')
 @app.route('/index')
-def index():
-    user = {'username': 'Miguel'}
-    posts = [
-        {
-            'author': {'username': 'John'},
-            'body': 'Beautiful day in Portland!'
-        },
-        {
-            'author': {'username': 'Susan'},
-            'body': 'The Avengers movie was so cool!'
-        }
-    ]
-    return render_template('index.html', title='Home', user=user, posts=posts)
+def home():
+    return render_template('home.html', title='Home')
 
 
 @app.route('/artists')
@@ -26,7 +15,7 @@ def artists():
 
 
 @app.route('/new_artist')
-def login():
+def new_artist():
     return render_template('new_artist.html')
 
 
