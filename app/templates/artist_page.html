@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for post in posts %}
+    {% if post.artist + "," == user %}
+        <h2>{{ post.artist }}</h2>
+        <h3>Ithaca</h3>
+        <p>{{ post.description }}</p>
+        <h3>Events:</h3>
+        <ui>
+        {% for event in post.events %}
+            <li>{{ event }}</li>
+        {% endfor %}
+        </ui>
+    {% endif %}
+{% endfor %}
+
+{% endblock %}
