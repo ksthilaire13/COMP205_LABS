@@ -4,7 +4,7 @@ from app.forms import LoginForm
 
 
 @app.route('/')
-@app.route('/index')
+@app.route('/home')
 def home():
     return render_template('home.html', title='Home')
 
