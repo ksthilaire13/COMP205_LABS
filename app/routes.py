@@ -18,9 +18,9 @@ def artists():
 def new_artist():
     form = CreateArtistForm()
     if form.validate_on_submit():
-        flash('Login requested for user {}, remember_me={}'.format(
-            form.artist_name.data, form.artist_hometown.data))
-        return redirect(url_for('index'))
+        flash('New Artist Created: {}'.format(
+            form.artist_name.data))
+        return redirect(url_for('artist_v2.html'), info=form)
     return render_template('new_artist.html', title="New Artist", form=form)
 
 
