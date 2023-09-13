@@ -3,8 +3,8 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import DataRequired
 
 
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
-    submit = SubmitField('Sign In')
+class CreateArtistForm(FlaskForm):
+    artist_name = StringField('Artist Name', validators=[DataRequired()])
+    artist_hometown = StringField('Hometown')
+    artist_description = StringField('Description')
+    submit = SubmitField('Create New Artist')
