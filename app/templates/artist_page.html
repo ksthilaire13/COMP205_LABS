@@ -4,7 +4,7 @@
 {% for post in posts %}
     {% if post.artist + "," == user %}
         <h2>{{ post.artist }}</h2>
-        <h3>Ithaca</h3>
+        <h3>Originally from {{ post.hometown }}</h3>
         <p>{{ post.description }}</p>
         <h3>Events:</h3>
         <ui>

@@ -1,7 +1,11 @@
 <!doctype html>
 <html>
     <head>
-        <title>Welcome to Ithaca Music</title>
+        {% if title %}
+            <title> {{ title }}</title>
+        {% else %}
+            <title>Welcome to Ithaca Music</title>
+        {% endif %}
     </head>
     <body>
         <div>
