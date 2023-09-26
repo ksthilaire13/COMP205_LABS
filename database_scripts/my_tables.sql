@@ -58,4 +58,15 @@ create table events
             references venues (user_id)
 );
 
+create table main.ArtistToEvents
+(
+    ArtistToEvent_id integer not null
+        primary key,
+    event_id         integer not null
+        constraint event_id_fk
+            references events,
+    artist_id        integer not null
+        constraint artist_id_fk
+            references artists
+);
 
