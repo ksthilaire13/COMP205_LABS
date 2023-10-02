@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from app import app
 from app.forms import CreateArtistForm
+from app import db
 
 
 @app.route('/')
@@ -19,8 +20,10 @@ def new_artist():
     form = CreateArtistForm()
     if form.validate_on_submit():
         flash('New Artist Created: {}'.format(form.artist_name.data))
-        artists_list.append({'artist': form.artist_name.data, 'hometown': form.artist_hometown.data, 'description': form.artist_description.data, 'events': ['none']})
-        return render_template('artist_page.html', title='Artist Page', user=form.artist_name.data + ",", posts=artists_list)
+        artists_list.append({'artist': form.artist_name.data, 'hometown': form.artist_hometown.data,
+                             'description': form.artist_description.data, 'events': ['none']})
+        return render_template('artist_page.html', title='Artist Page', user=form.artist_name.data + ",",
+                               posts=artists_list)
     return render_template('new_artist.html', title="New Artist", form=form)
 
 
@@ -28,6 +31,17 @@ def new_artist():
 def artist_page():
     my_var = request.args.get('my_var')
     return render_template('artist_page.html', title='Artist Page', user=my_var, posts=artists_list)
+
+
+@app.route('/reset_db')
+def reset_db():
+    flash("Resetting database: deleting old data and repopulating with dummy data")
+    # clear all data from all tables
+    meta = db.metadata
+    for table in reversed(meta.sorted_tables):
+        print('Clear table {}'.format(table))
+        db.session.execute(table.delete())
+    db.session.commit()
 
 
 artists_list = [
