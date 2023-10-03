@@ -1,7 +1,9 @@
+from turtle import pd
 from flask import render_template, flash, redirect, url_for, request
 from app import app
 from app.forms import CreateArtistForm
 from app import db
+from app.models import *
 
 
 @app.route('/')
@@ -30,7 +32,14 @@ def new_artist():
 @app.route('/artist_page')
 def artist_page():
     my_var = request.args.get('my_var')
-    return render_template('artist_page.html', title='Artist Page', user=my_var, posts=artists_list)
+    my_var_2 = ""
+    for i in range(len(my_var)):
+        if my_var[i] == ",":
+            my_var_2 = my_var_2 + ""
+        else:
+            my_var_2 = my_var_2 + my_var[i]
+    artist = Artist.query.get(my_var_2)
+    return render_template('artist_page.html', title='Artist Page', user=my_var, posts=artist)
 
 
 @app.route('/reset_db')
@@ -43,8 +52,26 @@ def reset_db():
         db.session.execute(table.delete())
     db.session.commit()
 
+    df = pd.read_csv('artists.csv')
+    df.to_sql('Artists_1', db.engine, if_exists='replace', index=False)
+
+    df = pd.read_csv('events.csv')
+    df.to_sql('Events_1', db.engine, if_exists='replace', index=False)
+
+    df = pd.read_csv('users.csv')
+    df.to_sql('Users_1', db.engine, if_exists='replace', index=False)
+
+    df = pd.read_csv('venues.csv')
+    df.to_sql('Venues_1', db.engine, if_exists='replace', index=False)
+
 
 artists_list = [
+    {
+        'artist': 'Johnny Cakes',
+        'hometown': 'Ithaca',
+        'description': 'Description wooooo!',
+        'events': ['an event', 'another event']
+    },
     {
         'artist': 'John Brown\'s Body',
         'hometown': 'Ithaca',
