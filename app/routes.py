@@ -1,9 +1,9 @@
 from turtle import pd
 from flask import render_template, flash, redirect, url_for, request
-from app import app
+from app import app, db
 from app.forms import CreateArtistForm
 from app import db
-from app.models import *
+from app.models import User, Artist, Event, Venue
 
 
 @app.route('/')

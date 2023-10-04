@@ -1,9 +1,7 @@
-import export
-import flask
-
+# import export
+# import flask
+from datetime import datetime
 from app import db
-
-
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128), index=True, unique=True)
@@ -11,7 +9,7 @@ class User(db.Model):
     user_password = db.Column(db.String(128), index=True, unique=True)
 
     def __repr__(self):
-        return '<User: {}>'.format(self.venue_name)
+        return '<User: {}>'.format(self.username)
 
 
 class Artist(db.Model):
