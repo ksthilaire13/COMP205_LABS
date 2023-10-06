@@ -2,6 +2,8 @@
 # import flask
 from datetime import datetime
 from app import db
+
+
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(128), index=True, unique=True)
@@ -40,8 +42,16 @@ class Event(db.Model):
     event_date = db.Column(db.String(128), index=True, unique=True)
     event_description = db.Column(db.String(128), index=True, unique=True)
     venue_id = db.Column(db.Integer, db.ForeignKey('venue.venue_id'))
-    artist_id = db.Column(db.Integer, db.ForeignKey('artist.artist_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
 
     def __repr__(self):
         return '<Event: {}>'.format(self.event_name)
+
+
+class ArtistToEvent(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    artist_id = db.Column(db.Integer, db.ForeignKey('artist.artist_id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('event.event_id'))
+
+    def __repr__(self):
+        return '<Artist To Event ID: {}>'.format(self.id)
