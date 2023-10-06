@@ -2,8 +2,8 @@
 
 {% block content %}
     <h2>List of Artists</h2>
-    {% for post in posts %}
-        <div><a href="{{ url_for('artist_page', my_var = post.artist) }},">{{ post.artist }}</a></div>
+    {% for artist in artists %}
+        <div><a href="{{ url_for('artist_page', artist_id = artist.artist_id) }}">{{ artist.artist_name }}</a></div>
         <br>
     {% endfor %}
 {% endblock %}

@@ -2,8 +2,7 @@ from turtle import pd
 from flask import render_template, flash, redirect, url_for, request
 from app import app, db
 from app.forms import CreateArtistForm
-from app import db
-from app.models import User, Artist, Event, Venue
+from app.models import User, Artist, Event, Venue, ArtistToEvent
 
 
 @app.route('/')
@@ -14,7 +13,8 @@ def home():
 
 @app.route('/artists')
 def artists():
-    return render_template('artists.html', title='Artists', posts=artists_list)
+    artists = Artist.query.all()
+    return render_template('artists.html', title='Artists', artists=artists)
 
 
 @app.route('/new_artist', methods=['GET', 'POST'])
@@ -31,15 +31,15 @@ def new_artist():
 
 @app.route('/artist_page')
 def artist_page():
-    my_var = request.args.get('my_var')
-    my_var_2 = ""
-    for i in range(len(my_var)):
-        if my_var[i] == ",":
-            my_var_2 = my_var_2 + ""
-        else:
-            my_var_2 = my_var_2 + my_var[i]
-    artist = Artist.query.get(my_var_2)
-    return render_template('artist_page.html', title='Artist Page', user=my_var, posts=artist)
+    artist_id = request.args.get('artist_id')
+    artist = Artist.query.get(artist_id)
+    print(artist)
+    print(ArtistToEvent.query.get(artist_id))
+    event_id_list = ArtistToEvent.query.get(artist_id)
+    print(event_id_list)
+    event_list = Event.query.get(event_id_list)
+    print(event_list)
+    return render_template('artist_page.html', title='Artist Page', this_artist=artist_id, artist=artist, events=event_list)
 
 
 @app.route('/reset_db')

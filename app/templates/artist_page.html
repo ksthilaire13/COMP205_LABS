@@ -1,18 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% for post in posts %}
-    {% if post.artist + "," == user %}
-        <h2>{{ post.artist_name }}</h2>
-        <h3>Originally from {{ post.hometown }}</h3>
-        <p>{{ post.description }}</p>
-        <h3>Events:</h3>
-        <ui>
-        {% for event in post.description %}
-            <li>{{ event }}</li>
-        {% endfor %}
-        </ui>
-    {% endif %}
+<h2>{{ artist.artist_name }}</h2>
+<h3>Originally from {{ artist.hometown }}</h3>
+<p>{{ artist.description }}</p>
+<h3>Events:</h3>
+{% for event in events %}
+    <ui>
+        <li>{{ event.event_name }} at the {{ event_date }}</li>
+    </ui>
 {% endfor %}
-
 {% endblock %}
