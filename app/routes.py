@@ -21,13 +21,25 @@ def artists():
 
 @app.route('/new_artist', methods=['GET', 'POST'])
 def new_artist():
+    artists = Artist.query.all()
+    copy = False
     form = CreateArtistForm()
     if form.validate_on_submit():
-        flash('New Artist Created: {}'.format(form.artist_name.data))
-        #artists_list.append({'artist': form.artist_name.data, 'hometown': form.artist_hometown.data,
-                           #  'description': form.artist_description.data, 'events': ['none']})
-        #return render_template('artist_page.html', title='Artist Page', user=form.artist_name.data + ",",
-                            #   posts=artists_list)
+        for i in range(len(artists)):
+            if form.artist_name.data in artists[i].artist_name:
+                flash('Sorry! That artist already exists')
+                copy = True
+                return redirect('/artists')
+        if copy is False:
+            flash('New Artist Created: {}'.format(form.artist_name.data))
+            artist = Artist(
+                artist_name=form.artist_name.data,
+                hometown=form.artist_hometown.data,
+                genre=form.artist_genre.data,
+                description=form.artist_description.data)
+            db.session.add(artist)
+            db.session.commit()
+            return redirect('/artists')
     return render_template('new_artist.html', title="New Artist", form=form)
 
 

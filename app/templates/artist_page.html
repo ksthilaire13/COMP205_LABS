@@ -9,7 +9,7 @@
     {% for venue in venues %}
     {% if event.venue_id == venue.venue_id %}
         <ui>
-            <li>{{ event.event_name }} at the {{ venue.venue_name }} on {{ event.event_date }}</li>
+            <li><b>{{ event.event_name }}</b> at the <b>{{ venue.venue_name }}</b> on <b>{{ event.event_date }}</b></li>
         </ui>
     {% endif %}
 

@@ -6,5 +6,6 @@ from wtforms.validators import DataRequired
 class CreateArtistForm(FlaskForm):
     artist_name = StringField('Artist Name', validators=[DataRequired()])
     artist_hometown = StringField('Hometown')
+    artist_genre = StringField('Genre')
     artist_description = TextAreaField('Description')
     submit = SubmitField('Create New Artist')
