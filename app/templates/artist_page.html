@@ -2,12 +2,14 @@
 
 {% block content %}
 <h2>{{ artist.artist_name }}</h2>
-<h3>Originally from {{ artist.hometown }}</h3>
+<h3> Originally from {{ artist.hometown }}</h3>
 <p>{{ artist.description }}</p>
 <h3>Events:</h3>
-{% for event in events %}
-    <ui>
-        <li>{{ event.event_name }} at the {{ event_date }}</li>
-    </ui>
+{% for events in artist_events %}
+    {% if artist_events.artist_id == artist.artist_id %}
+        <ui>
+            <li>{{ artist_events.event_id }} at the</li>
+        </ui>
+    {% endif %}
 {% endfor %}
 {% endblock %}

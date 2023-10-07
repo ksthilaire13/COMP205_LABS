@@ -1,5 +1,6 @@
 from turtle import pd
 from flask import render_template, flash, redirect, url_for, request
+from sqlalchemy import select
 from app import app, db
 from app.forms import CreateArtistForm
 from app.models import User, Artist, Event, Venue, ArtistToEvent
@@ -33,13 +34,15 @@ def new_artist():
 def artist_page():
     artist_id = request.args.get('artist_id')
     artist = Artist.query.get(artist_id)
-    print(artist)
-    print(ArtistToEvent.query.get(artist_id))
-    event_id_list = ArtistToEvent.query.get(artist_id)
-    print(event_id_list)
-    event_list = Event.query.get(event_id_list)
-    print(event_list)
-    return render_template('artist_page.html', title='Artist Page', this_artist=artist_id, artist=artist, events=event_list)
+    artist_to_event = ArtistToEvent.query.all()
+    #print(artist)
+    #print(ArtistToEvent.query.get(artist_id))
+    #event_id_list = ArtistToEvent.query.filter(ArtistToEvent.artist_id == Artist.artist_id)
+    # event_id_list = select()
+    #print(event_id_list)
+    #event_list = Event.query.filter(Event.event_id == event_id_list.event_id)
+    #print(event_list)
+    return render_template('artist_page.html', title='Artist Page', this_artist=artist_id, artist=artist, artist_events=artist_to_event)
 
 
 @app.route('/reset_db')
