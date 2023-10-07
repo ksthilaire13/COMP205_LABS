@@ -5,11 +5,17 @@
 <h3> Originally from {{ artist.hometown }}</h3>
 <p>{{ artist.description }}</p>
 <h3>Events:</h3>
-{% for events in artist_events %}
-    {% if artist_events.artist_id == artist.artist_id %}
+{% for event in events %}
+    {% for venue in venues %}
+    {% if event.venue_id == venue.venue_id %}
         <ui>
-            <li>{{ artist_events.event_id }} at the</li>
+            <li>{{ event.event_name }} at the {{ venue.venue_name }} on {{ event.event_date }}</li>
         </ui>
     {% endif %}
+
+    {% endfor %}
 {% endfor %}
+{% if event_count == 0 %}
+    <li> Sorry, this artist has no events :(</li>
+{% endif %}
 {% endblock %}
