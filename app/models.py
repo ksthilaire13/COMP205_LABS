@@ -1,8 +1,11 @@
-# import export
-# import flask
 from datetime import datetime
 from app import db
 
+# This is a secondary relationship table.
+# This table is NOT a class, but can be referenced with relationships
+ArtistToEvent = db.Table('artisttoevent',
+    db.Column('artist_id', db.Integer, db.ForeignKey('artist.artist_id')),
+    db.Column('event_id', db.Integer, db.ForeignKey('event.event_id')))
 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -22,8 +25,7 @@ class Artist(db.Model):
     description = db.Column(db.String(128), index=True)
 
     def __repr__(self):
-        return '<Artist: {}>'.format(self.artist_name)
-
+        return '<Artist: ({}) {}>'.format(self.artist_id,self.artist_name)
 
 class Venue(db.Model):
     venue_id = db.Column(db.Integer, primary_key=True)
@@ -31,10 +33,10 @@ class Venue(db.Model):
     venue_address = db.Column(db.String(64), index=True)
     venue_description = db.Column(db.String(128), index=True)
     max_capacity = db.Column(db.Integer, index=True)
+    events = db.relationship('Event', backref='venue', lazy='dynamic')
 
     def __repr__(self):
-        return '<Venue: {}>'.format(self.venue_name)
-
+        return '<Venue: ({}) {}>'.format(self.venue_id,self.venue_name)
 
 class Event(db.Model):
     event_id = db.Column(db.Integer, primary_key=True)
@@ -43,16 +45,7 @@ class Event(db.Model):
     event_description = db.Column(db.String(128), index=True)
     venue_id = db.Column(db.Integer, db.ForeignKey('venue.venue_id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
-
+    artists = db.relationship("Artist", secondary=ArtistToEvent, backref='events')
     def __repr__(self):
         return '<Event: {}>'.format(self.event_name)
-
-
-class ArtistToEvent(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    artist_id = db.Column(db.Integer, db.ForeignKey('artist.artist_id'))
-    event_id = db.Column(db.Integer, db.ForeignKey('event.event_id'))
-
-    def __repr__(self):
-        return '<Artist To Event ID: {}>'.format(self.id)
 

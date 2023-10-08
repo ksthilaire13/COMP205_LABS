@@ -2,7 +2,6 @@ import csv
 from app import db
 from app.models import User, Artist, Event, Venue, ArtistToEvent
 
-
 def reset_data():
     # with app.app_context():  ## Causes this to run on startup
     # clear all data from all tables
@@ -12,8 +11,7 @@ def reset_data():
         db.session.execute(table.delete())
     db.session.commit()
 
-    # Reload Users - needed for Foreign Keys
-
+    ## Reload Users - needed for Foreign Keys
     with open('database_scripts\\users.csv', 'r') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
@@ -27,7 +25,7 @@ def reset_data():
             db.session.add(user)
             db.session.commit()
 
-    # Reload Artists
+    ## Reload Artists
     with open('database_scripts\\artists.csv', 'r') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
@@ -43,7 +41,7 @@ def reset_data():
             db.session.add(artist)
             db.session.commit()
 
-    # Reload Venues
+    ## Reload Venues
     with open('database_scripts\\venues.csv', 'r') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
@@ -58,7 +56,7 @@ def reset_data():
             db.session.add(venue)
             db.session.commit()
 
-    # Reload Events
+    ## Reload Events
     with open('database_scripts\\events.csv', 'r') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
@@ -74,15 +72,18 @@ def reset_data():
             db.session.add(event)
             db.session.commit()
 
-    # Reload Events
+    ## Reload Events
     with open('database_scripts\\artist_to_event.csv', 'r') as file:
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
             print(row)  # used for confirmation
-            a2e = ArtistToEvent(
-                id=row['id']
-                , event_id=row['event_id']
-                , artist_id=row['artist_id']
+            # a2e = ArtistToEvent(
+            #       id=row['id']
+            #       event_id=row['event_id'], artist_id=row['artist_id'])
+            db.session.execute(
+                ArtistToEvent.insert().values(event_id=row['event_id'],artist_id=row['artist_id'])
+                # ArtistToEvent.insert(),
+                # parmms={"event_id": row['event_id'],"artist_id"=row['artist_id']},
             )
-            db.session.add(a2e)
+            # db.session.add(e)
             db.session.commit()

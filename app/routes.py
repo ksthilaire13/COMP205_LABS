@@ -46,24 +46,31 @@ def new_artist():
 @app.route('/artist_page')
 def artist_page():
     artist_id = request.args.get('artist_id')
+    print(artist_id)
     artist = Artist.query.get(artist_id)
-    events = Event.query.all()
-    all_venues = Venue.query.all()
-    artist_to_event = ArtistToEvent.query.all()
-    this_artist_events = []
-    for i in range(len(artist_to_event)):
-        if artist_to_event[i].artist_id == artist.artist_id:
-            this_artist_events.append(artist_to_event[i])
-    the_events = []
-    for j in range(len(this_artist_events)):
-        for i in range(len(events)):
-            if events[i].event_id == this_artist_events[j].event_id:
-                the_events.append(events[i])
-    artist_venues = []
-    for k in range(len(the_events)):
-        for l in range(len(all_venues)):
-            if all_venues[l].venue_id == the_events[k].venue_id:
-                artist_venues.append(all_venues[l])
+    print(artist)
+    # events = Event.query.all()
+    # all_venues = Venue.query.all()
+    # artist_to_event = ArtistToEvent.query.all()
+    # this_artist_events = artist.events
+    # for i in range(len(artist_to_event)):
+    #     if artist_to_event[i].artist_id == artist.artist_id:
+    #         this_artist_events.append(artist_to_event[i])
+    print("printing events")
+    the_events = artist.events
+    print(the_events)
+    # for j in range(len(this_artist_events)):
+    #     for i in range(len(events)):
+    #         if events[i].event_id == this_artist_events[j].event_id:
+    #             the_events.append(events[i])
+    print("printing venues")
+    artist_venues = artist.events.venue
+    print(artist_venues)
+    # for k in range(len(the_events)):
+    #     for l in range(len(all_venues)):
+    #         if all_venues[l].venue_id == the_events[k].venue_id:
+    #             artist_venues.append(all_venues[l])
+    print("printing events")
     event_count = len(the_events)
 
     return render_template('artist_page.html', title='Artist Page', this_artist=artist_id, artist=artist, events=the_events, event_count=event_count, venues=artist_venues)
