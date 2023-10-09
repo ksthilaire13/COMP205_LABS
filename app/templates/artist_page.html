@@ -6,14 +6,9 @@
 <p>{{ artist.description }}</p>
 <h3>Events:</h3>
 {% for event in events %}
-    {% for venue in venues %}
-    {% if event.venue_id == venue.venue_id %}
-        <ui>
-            <li><b>{{ event.event_name }}</b> at the <b>{{ venue.venue_name }}</b> on <b>{{ event.event_date }}</b></li>
-        </ui>
-    {% endif %}
-
-    {% endfor %}
+    <ui>
+        <li><b>{{ event.event_name }}</b> at the <b>{{ event.venue.venue_name }}</b> on <b>{{ event.event_date }}</b></li>
+    </ui>
 {% endfor %}
 {% if event_count == 0 %}
     <li> Sorry, this artist has no events :(</li>
