@@ -48,6 +48,8 @@ def reset_data():
                 venue_id=row['venue_id'],
                 venue_name=row['venue_name'],
                 venue_address=row['venue_address'],
+                venue_city=row['venue_city'],
+                venue_state=row['venue_state'],
                 venue_description=row['venue_description'],
                 max_capacity=row['max_capacity'])
             db.session.add(venue)

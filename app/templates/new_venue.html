@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Create New Venue</h2>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.venue_name.label }}<br>
+            {{ form.venue_name(size=32) }}<br>
+            {% for error in form.venue_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.venue_address.label }}<br>
+            {{ form.venue_address(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.venue_city.label }}<br>
+            {{ form.venue_city(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.venue_state.label }}<br>
+            {{ form.venue_state(size=6) }}<br>
+        </p>
+        <p>
+            {{ form.venue_description.label }}<br>
+            {{ form.venue_description(size=150)}}<br>
+        </p>
+        <p>
+            {{ form.max_capacity.label }}<br>
+            {{ form.max_capacity(size=12) }}<br>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

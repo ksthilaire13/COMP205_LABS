@@ -1,6 +1,6 @@
-venue_id,venue_name,venue_address,venue_description,max_capacity,user_id
-301,Big City Venue,"New York, NY",a big venue ontop a big building cause its in new york and ny is very big and flashy,1000,100
-302,Country Venue,"Nashville, TN","a smol country venue outside of nashville TN, very homey but can hold alot of ppl",500,100
-303,Other Venue,"Colorado Springs, CO",its a venue. wowww,50,100
-304,Beach Venue,"Las Vegas, NV",sand taken a little bit too seriously,5000,100
-305,Mountain Venue,"Pigeon Forge, TN",there isn't really alot of pigeons here,400,100
+venue_id,venue_name,venue_address,venue_city,venue_state,venue_description,max_capacity,user_id
+301,Big City Venue,1234 Road,New York,NY, a big venue ontop a big building cause its in new york and ny is very big and flashy,1000,100
+302,Country Venue,1234 Road,Nashville,TN,"a smol country venue outside of nashville TN, very homey but can hold alot of ppl",500,100
+303,Other Venue,5678 Road,Colorado Springs,CO,its a venue. wowww,50,100
+304,Beach Venue,2345 Road,Las Vegas,NV,sand taken a little bit too seriously,5000,100
+305,Mountain Venue,2345 Road,Pigeon Forge,TN,there isn't really alot of pigeons here,400,100

@@ -46,6 +46,8 @@ class Venue(db.Model):
     venue_id = db.Column(db.Integer, primary_key=True)
     venue_name = db.Column(db.String(64), index=True, unique=True)
     venue_address = db.Column(db.String(64), index=True)
+    venue_city = db.Column(db.String(64), index=True)
+    venue_state = db.Column(db.String(2), index=True)
     venue_description = db.Column(db.String(128), index=True)
     max_capacity = db.Column(db.Integer, index=True)
     events = db.relationship('Event', backref='venue', lazy='dynamic')

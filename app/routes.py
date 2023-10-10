@@ -4,7 +4,7 @@ from sqlalchemy import select
 from werkzeug.urls import url_parse
 
 from app import app, db
-from app.forms import CreateArtistForm, LoginForm, RegistrationForm
+from app.forms import CreateArtistForm, LoginForm, RegistrationForm, CreateVenueForm, CreateEventForm
 from app.models import User, Artist, Event, Venue, ArtistToEvent
 from app.reset import reset_data
 from flask_login import current_user, login_user, logout_user, login_required
@@ -46,6 +46,67 @@ def new_artist():
             return redirect('/artists')
     return render_template('new_artist.html', title="New Artist", form=form)
 
+@app.route('/new_venue', methods=['GET', 'POST'])
+@login_required
+def new_venue():
+    venues = Venue.query.all()
+    copy = False
+    form = CreateVenueForm()
+    if form.validate_on_submit():
+        for i in range(len(venues)):
+            if form.venue_name.data in venues[i].venue_name:
+                flash('Sorry! That venue already exists')
+                copy = True
+                return redirect('/new_venue')
+        if copy is False:
+            flash('New Venue Created: {}'.format(form.venue_name.data))
+            venue = Venue(
+                venue_name=form.venue_name.data,
+                venue_address=form.venue_address.data,
+                venue_city=form.venue_city.data,
+                venue_state=form.venue_state.data,
+                venue_description=form.venue_description.data,
+                max_capacity=form.max_capacity.data)
+            db.session.add(venue)
+            db.session.commit()
+            return redirect('/home')
+    return render_template('new_venue.html', title="New Venue", form=form)
+
+
+@app.route('/new_event', methods=['GET', 'POST'])
+@login_required
+def new_event():
+    events = Event.query.all()
+    copy = False
+    form = CreateEventForm()
+    form.venue.choices = [(v.venue_id, v.venue_name) for v in Venue.query.all()]
+    form.artists.choices = [(a.artist_id, a.artist_name) for a in Artist.query.all()]
+    print('here!')
+    if form.validate_on_submit():
+        print('WOOOOOOO')
+        for i in range(len(events)):
+            if form.event_name.data in events[i].event_name:
+                print('here,,,')
+                flash('Sorry! That event already exists')
+                copy = True
+                return redirect('/new_event')
+        if copy is False:
+            print('HEREEEE')
+            flash('New Event Created: {}'.format(form.event_name.data))
+            event = Event(
+                event_name=form.event_name.data,
+                event_date=form.event_date.data,
+                event_description=form.event_description.data,
+                venue_id=form.venue.data
+                #artists=form.artists.data,
+                )
+            db.session.add(event)
+            db.session.commit()
+            return redirect('/home')
+    return render_template('new_event.html', title="New Event", form=form)
+
+#form = NewEventForm()
+#form.venue.choices = [(v.id, v.name) for v in Venue.query.all()]
 
 @app.route('/artist_page/<artist_name>')
 def artist_page(artist_name):
