@@ -1,4 +1,5 @@
 import csv
+from werkzeug.security import generate_password_hash
 from app import db
 from app.models import User, Artist, Event, Venue, ArtistToEvent
 
@@ -20,7 +21,7 @@ def reset_data():
                 id=row['user_id'],
                 username=row['username'],
                 user_email=row['user_email'],
-                user_password=row['user_password'])
+                password_hash=generate_password_hash(row['user_password']))
             db.session.add(user)
             db.session.commit()
 
