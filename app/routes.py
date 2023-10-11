@@ -81,28 +81,31 @@ def new_event():
     form = CreateEventForm()
     form.venue.choices = [(v.venue_id, v.venue_name) for v in Venue.query.all()]
     form.artists.choices = [(a.artist_id, a.artist_name) for a in Artist.query.all()]
-    print('here!')
     if form.validate_on_submit():
-        print('WOOOOOOO')
         for i in range(len(events)):
             if form.event_name.data in events[i].event_name:
-                print('here,,,')
                 flash('Sorry! That event already exists')
                 copy = True
                 return redirect('/new_event')
         if copy is False:
-            print('HEREEEE')
             flash('New Event Created: {}'.format(form.event_name.data))
             event = Event(
                 event_name=form.event_name.data,
                 event_date=form.event_date.data,
                 event_description=form.event_description.data,
-                venue_id=form.venue.data
-                #artists=form.artists.data,
-                )
+                venue_id=form.venue.data)
+            print('What we get is: ', form.artists.data)
+            for i in range(len(form.artists.data)):
+                print(form.artists.data[i])
+                artist = Artist.query.get(form.artists.data[i])
+                event.artists.append(artist)
             db.session.add(event)
             db.session.commit()
             return redirect('/home')
+    else:
+        print('..this is GET EVENT, not the post?')
+        print('Method=', request.method)
+        print(form.errors)
     return render_template('new_event.html', title="New Event", form=form)
 
 #form = NewEventForm()
@@ -136,6 +139,7 @@ def login():
             return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
+        flash('User Logged in: {}'.format(form.username.data))
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('home')
         return redirect(next_page)

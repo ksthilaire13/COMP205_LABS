@@ -27,8 +27,8 @@ class CreateEventForm(FlaskForm):
     event_name = StringField('Event Name', validators=[DataRequired()])
     event_date = DateField('Date', format='%Y-%m-%d')
     event_description = TextAreaField('Description')
-    artists = SelectMultipleField('Artists')
-    venue = SelectField('Venue')
+    artists = SelectMultipleField('Artists', coerce=int)
+    venue = SelectField('Venue', coerce=int)
     submit = SubmitField('Create New Event')
 
 
