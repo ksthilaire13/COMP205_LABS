@@ -46,6 +46,7 @@ def new_artist():
             return redirect('/artists')
     return render_template('new_artist.html', title="New Artist", form=form)
 
+
 @app.route('/new_venue', methods=['GET', 'POST'])
 @login_required
 def new_venue():
